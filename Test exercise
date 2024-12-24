@@ -1,0 +1,52 @@
+import java.util.Scanner;
+
+ class Tretiy {
+     public static void main(String[] args) {
+         Scanner scanner = new Scanner(System.in);
+         System.out.println("Введите арифметическое выражение (например, 2 + 2): ");
+         while (scanner.hasNextLine()) {
+             String inp = scanner.nextLine();
+             try {
+                 System.out.println(calc(inp));
+             } catch (Exception exception) {
+                 System.out.println("Ошибка: " + exception.getMessage());
+             }
+         }
+         scanner.close();
+     }
+
+     public static String calc(String inp) throws Exception {
+         String[] tokens = inp.split("");
+         if (tokens.length != 3) {
+             throw new Exception("Неверный формат выражения");
+         }
+
+         float num1 = Float.parseFloat(tokens[0]);
+         String operator = tokens[1];
+         float num2 = Float.parseFloat(tokens[2]);
+
+         float result;
+         switch (operator) {
+             case "+":
+                 result = num1 + num2;
+                 break;
+             case "-":
+                 result = num1 - num2;
+                 break;
+             case "*":
+                 result = num1 * num2;
+                 break;
+             case "/":
+                 if (num2 == 0) {
+                     throw new Exception("Деление на ноль");
+                 }
+                 result = num1 / num2;
+                 break;
+             default:
+                 throw new Exception("Неизвестный оператор");
+         }
+
+         return String.valueOf(result);
+     }
+
+}
